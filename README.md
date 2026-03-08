@@ -62,29 +62,32 @@ congestion_tracker/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/<your-username>/congestion-tracker.git
-cd congestion-tracker/05_hackathon/congestion_tracker
+git clone https://github.com/sophwa/congestion_tracker.git
+cd congestion_tracker
 ```
 
 ### 2. Create `.env` files
 
-Both `api/` and `dashboard/` need a `.env` file. Create them from the template:
+Both `api/` and `dashboard/` need a `.env` file. Copy the provided examples and fill in your values:
 
-**`api/.env`**
+```bash
+cp api/.env.example api/.env
+cp dashboard/.env.example dashboard/.env
+```
+
+**`api/.env`** — fill in your Supabase project URL and anon key:
 ```
 SUPABASE_URL=https://xxxx.supabase.co
 SUPABASE_KEY=your-anon-key
 ```
 
-**`dashboard/.env`**
+**`dashboard/.env`** — fill in your API URL and Ollama Cloud credentials:
 ```
-API_BASE_URL=https://your-api.posit.cloud/your-api-path
-OLLAMA_BASE_URL=https://ollama.com
+API_BASE_URL=http://localhost:8000
+OLLAMA_BASE_URL=https://your-ollama-cloud-host
 OLLAMA_MODEL=llama3.2
 OLLAMA_API_KEY=your-ollama-cloud-api-key
 ```
-
-> For local development, `API_BASE_URL` can be `http://localhost:8000`.
 
 ### 3. Set up the Supabase database
 
@@ -92,17 +95,14 @@ OLLAMA_API_KEY=your-ollama-cloud-api-key
 2. Paste the contents of `database/schema.sql` and run it.
 3. The tables `locations` and `congestion_readings` are now created with public read access.
 
-### 4. Generate and seed synthetic data
+### 4. Seed synthetic data
+
+The CSV data files are already included in the repo (`data/locations.csv` and `data/readings.csv`). Just upload them to Supabase:
 
 ```bash
-# From the repo root
-cd data
-python3 generate_data.py          # creates locations.csv and readings.csv
-
-cd ..
 pip3 install supabase python-dotenv
-# (SUPABASE_KEY should be your service-role key for this step only)
-python3 database/seed.py          # uploads all rows to Supabase
+# Use your service-role key in api/.env for this step, then switch back to the anon key
+python3 database/seed.py
 ```
 
 ### 5. Run the API locally
@@ -167,7 +167,7 @@ cd dashboard
 rsconnect deploy shiny --server https://your.posit.server --api-key YOUR_KEY .
 ```
 
-Alternatively, deploy each as a DigitalOcean App using the Dockerfile approach shown in `04_deployment/digitalocean/`.
+Alternatively, deploy each as a DigitalOcean App Platform service (set the run command to `uvicorn app:app --host 0.0.0.0 --port 8080` for the API and `shiny run app.py --host 0.0.0.0 --port 8080` for the dashboard).
 
 ---
 

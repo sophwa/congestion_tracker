@@ -27,7 +27,7 @@ from shiny.express import input, ui as xui
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-load_dotenv()
+_ = load_dotenv()
 
 API_BASE    = os.getenv("API_BASE_URL", "http://localhost:8000").rstrip("/")
 OLLAMA_BASE = os.getenv("OLLAMA_BASE_URL", "https://ollama.com").rstrip("/")
