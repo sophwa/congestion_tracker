@@ -2,16 +2,18 @@
 # City Congestion Tracker — Shiny Dashboard (Python)
 # Deployed to Posit Connect.
 #
-# Pipeline: Supabase → FastAPI → this dashboard → OpenAI
+# Pipeline: Supabase → FastAPI → this dashboard → Ollama
 #
 # The dashboard:
 #   - calls the REST API for current and historical congestion data
 #   - renders an interactive table and time-series chart
-#   - sends a compact stats slice to OpenAI for a plain-language AI summary
+#   - sends a compact stats slice to Ollama for a plain-language AI summary
 #
 # Environment variables (.env):
-#   API_BASE_URL   = https://your-api.example.com   (the FastAPI deployment URL)
-#   OPENAI_API_KEY = sk-...
+#   API_BASE_URL    = https://your-api.example.com   (the FastAPI deployment URL)
+#   OLLAMA_BASE_URL = http://localhost:11434          (local) or your Ollama Cloud URL
+#   OLLAMA_MODEL    = llama3.2                        (any model pulled in Ollama)
+#   OLLAMA_API_KEY  = (optional, only for cloud deployments that require auth)
 
 import os
 import json
@@ -27,10 +29,10 @@ from shiny.express import input, ui as xui
 # ---------------------------------------------------------------------------
 load_dotenv()
 
-API_BASE = os.getenv("API_BASE_URL", "http://localhost:8000").rstrip("/")
-OPENAI_KEY = os.getenv("OPENAI_API_KEY", "")
-OPENAI_URL = "https://api.openai.com/v1/responses"
-OPENAI_MODEL = "gpt-4o-mini"
+API_BASE    = os.getenv("API_BASE_URL", "http://localhost:8000").rstrip("/")
+OLLAMA_BASE = os.getenv("OLLAMA_BASE_URL", "https://ollama.com").rstrip("/")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2")
+OLLAMA_KEY  = os.getenv("OLLAMA_API_KEY", "")   # optional; required by some cloud hosts
 
 # ---------------------------------------------------------------------------
 # API helpers
@@ -66,22 +68,20 @@ def congestion_label(level: float) -> str:
 # ---------------------------------------------------------------------------
 # AI summary helper
 # ---------------------------------------------------------------------------
-def call_openai(prompt: str) -> str:
-    if not OPENAI_KEY:
-        return "OpenAI API key not configured. Set OPENAI_API_KEY in .env."
-    headers = {
-        "Authorization": f"Bearer {OPENAI_KEY}",
-        "Content-Type": "application/json",
-    }
+def call_ollama(prompt: str) -> str:
+    headers = {"Content-Type": "application/json"}
+    if OLLAMA_KEY:
+        headers["Authorization"] = f"Bearer {OLLAMA_KEY}"
     body = {
-        "model": OPENAI_MODEL,
-        "input": prompt,
+        "model": OLLAMA_MODEL,
+        "messages": [{"role": "user", "content": prompt}],
+        "stream": False,
     }
     try:
-        r = requests.post(OPENAI_URL, headers=headers, json=body, timeout=30)
+        r = requests.post(f"{OLLAMA_BASE}/api/chat", headers=headers, json=body, timeout=60)
         r.raise_for_status()
         result = r.json()
-        return result["output"][0]["content"][0]["text"]
+        return result["message"]["content"]
     except Exception as e:
         return f"AI summary error: {e}"
 
@@ -267,7 +267,7 @@ with xui.card():
     def ai_summary():
         _ = input.summarise()  # only runs when button clicked
         if input.summarise() == 0:
-            return xui.p("Click 'Get AI summary' to generate an OpenAI-powered insight.",
+            return xui.p("Click 'Get AI summary' to generate an Ollama-powered insight.",
                          style="color: gray;")
 
         days = int(input.view_days())
@@ -275,13 +275,13 @@ with xui.card():
         summary_stats = api_get("/congestion/summary_data", {"days": days})
 
         prompt = build_ai_prompt(current, summary_stats, days)
-        text = call_openai(prompt)
+        text = call_ollama(prompt)
 
         return xui.div(
             xui.p(text),
             xui.tags.small(
                 f"Generated {datetime.utcnow().strftime('%Y-%m-%d %H:%M')} UTC | "
-                f"Model: {OPENAI_MODEL}",
+                f"Model: {OLLAMA_MODEL}",
                 style="color: gray;",
             ),
         )

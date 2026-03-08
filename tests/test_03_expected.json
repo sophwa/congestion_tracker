@@ -1,0 +1,92 @@
+[
+  {
+    "id": 11521,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T00:00:00+00:00",
+    "congestion_level": 0.8,
+    "speed_mph": 41.8,
+    "volume": 22
+  },
+  {
+    "id": 11541,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T00:15:00+00:00",
+    "congestion_level": 0.9,
+    "speed_mph": 41.4,
+    "volume": 24
+  },
+  {
+    "id": 11561,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T00:30:00+00:00",
+    "congestion_level": 0.7,
+    "speed_mph": 42.2,
+    "volume": 19
+  },
+  {
+    "id": 11581,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T00:45:00+00:00",
+    "congestion_level": 0.6,
+    "speed_mph": 42.6,
+    "volume": 17
+  },
+  {
+    "id": 11601,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T01:00:00+00:00",
+    "congestion_level": 0.5,
+    "speed_mph": 43.0,
+    "volume": 15
+  },
+  {
+    "id": 11621,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T01:15:00+00:00",
+    "congestion_level": 0.6,
+    "speed_mph": 42.6,
+    "volume": 18
+  },
+  {
+    "id": 11641,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T01:30:00+00:00",
+    "congestion_level": 0.4,
+    "speed_mph": 43.4,
+    "volume": 13
+  },
+  {
+    "id": 11661,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T07:00:00+00:00",
+    "congestion_level": 5.2,
+    "speed_mph": 24.2,
+    "volume": 187
+  },
+  {
+    "id": 11681,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T07:15:00+00:00",
+    "congestion_level": 6.1,
+    "speed_mph": 20.6,
+    "volume": 214
+  },
+  {
+    "id": 11701,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-01T07:30:00+00:00",
+    "congestion_level": 7.3,
+    "speed_mph": 15.8,
+    "volume": 241
+  }
+]

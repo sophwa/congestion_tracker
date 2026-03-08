@@ -1,0 +1,182 @@
+[
+  {
+    "id": 25701,
+    "location_id": 1,
+    "location_name": "Main St & 1st Ave",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 3.2,
+    "speed_mph": 32.2,
+    "volume": 98
+  },
+  {
+    "id": 25702,
+    "location_id": 2,
+    "location_name": "College Ave & State St",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 2.8,
+    "speed_mph": 33.8,
+    "volume": 88
+  },
+  {
+    "id": 25703,
+    "location_id": 3,
+    "location_name": "Seneca St & Tioga St",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 2.1,
+    "speed_mph": 36.6,
+    "volume": 72
+  },
+  {
+    "id": 25704,
+    "location_id": 4,
+    "location_name": "Meadow St & Dryden Rd",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 1.9,
+    "speed_mph": 37.4,
+    "volume": 65
+  },
+  {
+    "id": 25705,
+    "location_id": 5,
+    "location_name": "Route 13 North Segment",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 3.4,
+    "speed_mph": 31.4,
+    "volume": 198
+  },
+  {
+    "id": 25706,
+    "location_id": 6,
+    "location_name": "Route 96 East Segment",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 4.1,
+    "speed_mph": 28.6,
+    "volume": 234
+  },
+  {
+    "id": 25707,
+    "location_id": 7,
+    "location_name": "Elmira Rd Segment",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 2.7,
+    "speed_mph": 34.2,
+    "volume": 178
+  },
+  {
+    "id": 25708,
+    "location_id": 8,
+    "location_name": "Hanshaw Rd Segment",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 1.8,
+    "speed_mph": 37.8,
+    "volume": 143
+  },
+  {
+    "id": 25709,
+    "location_id": 9,
+    "location_name": "Downtown Zone",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 4.3,
+    "speed_mph": 27.8,
+    "volume": 198
+  },
+  {
+    "id": 25710,
+    "location_id": 10,
+    "location_name": "University Area Zone",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 3.1,
+    "speed_mph": 32.6,
+    "volume": 167
+  },
+  {
+    "id": 25711,
+    "location_id": 11,
+    "location_name": "West Hill Zone",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 2.2,
+    "speed_mph": 36.2,
+    "volume": 145
+  },
+  {
+    "id": 25712,
+    "location_id": 12,
+    "location_name": "Cayuga Heights Zone",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 1.6,
+    "speed_mph": 38.6,
+    "volume": 132
+  },
+  {
+    "id": 25713,
+    "location_id": 13,
+    "location_name": "South Hill Zone",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 2.5,
+    "speed_mph": 35.0,
+    "volume": 152
+  },
+  {
+    "id": 25714,
+    "location_id": 14,
+    "location_name": "Northeast Zone",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 1.9,
+    "speed_mph": 37.4,
+    "volume": 138
+  },
+  {
+    "id": 25715,
+    "location_id": 15,
+    "location_name": "Ithaca Commons",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 5.1,
+    "speed_mph": 24.6,
+    "volume": 143
+  },
+  {
+    "id": 25716,
+    "location_id": 16,
+    "location_name": "Green St & Cayuga St",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 3.8,
+    "speed_mph": 29.8,
+    "volume": 112
+  },
+  {
+    "id": 25717,
+    "location_id": 17,
+    "location_name": "Aurora St & Buffalo St",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 3.2,
+    "speed_mph": 32.2,
+    "volume": 98
+  },
+  {
+    "id": 25718,
+    "location_id": 18,
+    "location_name": "Cayuga St Corridor",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 3.9,
+    "speed_mph": 29.4,
+    "volume": 212
+  },
+  {
+    "id": 25719,
+    "location_id": 19,
+    "location_name": "Stewart Ave Segment",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 2.6,
+    "speed_mph": 34.6,
+    "volume": 167
+  },
+  {
+    "id": 25720,
+    "location_id": 20,
+    "location_name": "East State St Segment",
+    "timestamp": "2026-03-08T09:45:00+00:00",
+    "congestion_level": 3.1,
+    "speed_mph": 32.6,
+    "volume": 189
+  }
+]

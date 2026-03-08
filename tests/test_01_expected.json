@@ -1,0 +1,22 @@
+[
+  {"id": 1, "name": "Main St & 1st Ave",       "type": "intersection", "lat": 42.444,  "lon": -76.5019},
+  {"id": 2, "name": "College Ave & State St",   "type": "intersection", "lat": 42.4474, "lon": -76.4875},
+  {"id": 3, "name": "Seneca St & Tioga St",     "type": "intersection", "lat": 42.439,  "lon": -76.498},
+  {"id": 4, "name": "Meadow St & Dryden Rd",    "type": "intersection", "lat": 42.435,  "lon": -76.49},
+  {"id": 5, "name": "Route 13 North Segment",   "type": "segment",      "lat": 42.46,   "lon": -76.51},
+  {"id": 6, "name": "Route 96 East Segment",    "type": "segment",      "lat": 42.45,   "lon": -76.47},
+  {"id": 7, "name": "Elmira Rd Segment",        "type": "segment",      "lat": 42.428,  "lon": -76.52},
+  {"id": 8, "name": "Hanshaw Rd Segment",       "type": "segment",      "lat": 42.47,   "lon": -76.46},
+  {"id": 9, "name": "Downtown Zone",            "type": "zone",         "lat": 42.443,  "lon": -76.499},
+  {"id": 10,"name": "University Area Zone",     "type": "zone",         "lat": 42.449,  "lon": -76.484},
+  {"id": 11,"name": "West Hill Zone",           "type": "zone",         "lat": 42.441,  "lon": -76.515},
+  {"id": 12,"name": "Cayuga Heights Zone",      "type": "zone",         "lat": 42.468,  "lon": -76.478},
+  {"id": 13,"name": "South Hill Zone",          "type": "zone",         "lat": 42.429,  "lon": -76.496},
+  {"id": 14,"name": "Northeast Zone",           "type": "zone",         "lat": 42.462,  "lon": -76.468},
+  {"id": 15,"name": "Ithaca Commons",           "type": "intersection", "lat": 42.441,  "lon": -76.499},
+  {"id": 16,"name": "Green St & Cayuga St",     "type": "intersection", "lat": 42.44,   "lon": -76.4973},
+  {"id": 17,"name": "Aurora St & Buffalo St",   "type": "intersection", "lat": 42.442,  "lon": -76.5},
+  {"id": 18,"name": "Cayuga St Corridor",       "type": "segment",      "lat": 42.445,  "lon": -76.497},
+  {"id": 19,"name": "Stewart Ave Segment",      "type": "segment",      "lat": 42.438,  "lon": -76.487},
+  {"id": 20,"name": "East State St Segment",    "type": "segment",      "lat": 42.436,  "lon": -76.492}
+]

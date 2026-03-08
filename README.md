@@ -7,7 +7,7 @@ An end-to-end AI-powered city traffic congestion monitoring system built for SYS
 ## System Architecture
 
 ```
-Supabase DB  →  FastAPI REST API  →  Shiny Dashboard  →  OpenAI GPT-4o-mini
+Supabase DB  →  FastAPI REST API  →  Shiny Dashboard  →  Ollama (llama3.2)
 (PostgreSQL)     (data access)        (user interface)     (AI summaries)
 ```
 
@@ -15,7 +15,7 @@ The pipeline:
 1. **Supabase** stores congestion readings (15-min intervals) for 20 city locations.
 2. **FastAPI** exposes those readings through a REST API with filtering by location, time window, and severity.
 3. **Shiny** (Python) dashboard lets users explore current and historical congestion and request AI summaries.
-4. **OpenAI** (gpt-4o-mini) receives a compact stats slice and returns a plain-language narrative for the transportation authority.
+4. **Ollama** receives a compact stats slice and returns a plain-language narrative for the transportation authority.
 
 ---
 
@@ -57,7 +57,7 @@ congestion_tracker/
 
 - Python 3.11+
 - A [Supabase](https://supabase.com) account (free tier is sufficient)
-- An [OpenAI](https://platform.openai.com) API key
+- An [Ollama Cloud](https://ollama.com) account with an API key and a model deployed (e.g. `llama3.2`)
 
 ### 1. Clone the repo
 
@@ -79,7 +79,9 @@ SUPABASE_KEY=your-anon-key
 **`dashboard/.env`**
 ```
 API_BASE_URL=https://your-api.posit.cloud/your-api-path
-OPENAI_API_KEY=sk-...
+OLLAMA_BASE_URL=https://ollama.com
+OLLAMA_MODEL=llama3.2
+OLLAMA_API_KEY=your-ollama-cloud-api-key
 ```
 
 > For local development, `API_BASE_URL` can be `http://localhost:8000`.
@@ -143,7 +145,7 @@ Full interactive docs at `/docs` (Swagger UI) or `/redoc`.
 - **Current Congestion Table** — sortable table of all locations' latest readings, colour-coded by severity (green/orange/red)
 - **Worst Locations Panel** — ranked cards for the top-K most congested locations
 - **Time-Series Chart** — interactive 15-min interval line chart for any location over 1–14 days
-- **AI Summary** — one click sends a compact stats slice to OpenAI GPT-4o-mini and displays a plain-language report covering:
+- **AI Summary** — one click sends a compact stats slice to Ollama and displays a plain-language report covering:
   - Which areas are worst right now
   - How current conditions compare to the historical average
   - An actionable recommendation (routes to avoid, areas to monitor)
