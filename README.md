@@ -94,7 +94,7 @@ OPENAI_API_KEY=sk-...
 
 ```bash
 # From the repo root
-cd 05_hackathon/congestion_tracker/data
+cd data
 python3 generate_data.py          # creates locations.csv and readings.csv
 
 cd ..
