@@ -1,0 +1,21 @@
+id,name,type,lat,lon
+1,Main St & 1st Ave,intersection,42.444,-76.5019
+2,College Ave & State St,intersection,42.4474,-76.4875
+3,Seneca St & Tioga St,intersection,42.439,-76.498
+4,Meadow St & Dryden Rd,intersection,42.435,-76.49
+5,Route 13 North Segment,segment,42.46,-76.51
+6,Route 96 East Segment,segment,42.45,-76.47
+7,Elmira Rd Segment,segment,42.428,-76.52
+8,Hanshaw Rd Segment,segment,42.47,-76.46
+9,Downtown Zone,zone,42.443,-76.499
+10,University Area Zone,zone,42.449,-76.484
+11,West Hill Zone,zone,42.441,-76.515
+12,Cayuga Heights Zone,zone,42.468,-76.478
+13,South Hill Zone,zone,42.429,-76.496
+14,Northeast Zone,zone,42.462,-76.468
+15,Ithaca Commons,intersection,42.441,-76.499
+16,Green St & Cayuga St,intersection,42.44,-76.4973
+17,Aurora St & Buffalo St,intersection,42.442,-76.5
+18,Cayuga St Corridor,segment,42.445,-76.497
+19,Stewart Ave Segment,segment,42.438,-76.487
+20,East State St Segment,segment,42.436,-76.492
