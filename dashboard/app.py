@@ -31,7 +31,7 @@ _ = load_dotenv()
 
 API_BASE    = os.getenv("API_BASE_URL", "http://localhost:8000").rstrip("/")
 OLLAMA_BASE = os.getenv("OLLAMA_BASE_URL", "https://ollama.com").rstrip("/")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gpt-oss:20b-cloud")
 OLLAMA_KEY  = os.getenv("OLLAMA_API_KEY", "")   # optional; required by some cloud hosts
 
 # ---------------------------------------------------------------------------

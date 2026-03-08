@@ -7,7 +7,7 @@ An end-to-end AI-powered city traffic congestion monitoring system built for SYS
 ## System Architecture
 
 ```
-Supabase DB  →  FastAPI REST API  →  Shiny Dashboard  →  Ollama (llama3.2)
+Supabase DB  →  FastAPI REST API  →  Shiny Dashboard  →  Ollama (gpt-oss:20b-cloud)
 (PostgreSQL)     (data access)        (user interface)     (AI summaries)
 ```
 
@@ -57,7 +57,7 @@ congestion_tracker/
 
 - Python 3.11+
 - A [Supabase](https://supabase.com) account (free tier is sufficient)
-- An [Ollama Cloud](https://ollama.com) account with an API key and a model deployed (e.g. `llama3.2`)
+- An [Ollama Cloud](https://ollama.com) account with an API key and a model deployed (e.g. `gpt-oss:20b-cloud`)
 
 ### 1. Clone the repo
 
@@ -85,7 +85,7 @@ SUPABASE_KEY=your-anon-key
 ```
 API_BASE_URL=http://localhost:8000
 OLLAMA_BASE_URL=https://your-ollama-cloud-host
-OLLAMA_MODEL=llama3.2
+OLLAMA_MODEL=gpt-oss:20b-cloud
 OLLAMA_API_KEY=your-ollama-cloud-api-key
 ```
 
