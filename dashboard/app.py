@@ -42,7 +42,7 @@ OLLAMA_KEY  = os.getenv("OLLAMA_API_KEY", "")   # optional; required by some clo
 def api_get(path: str, params: dict = None):
     """Call the REST API and return parsed JSON, or an empty list on error."""
     try:
-        r = requests.get(f"{API_BASE}{path}", params=params, timeout=15)
+        r = requests.get(f"{API_BASE}{path}", params=params, timeout=5)
         r.raise_for_status()
         return r.json()
     except Exception as e:
@@ -167,9 +167,10 @@ with xui.layout_columns(col_widths=[6, 6]):
         def current_table():
             _ = input.refresh()  # dependency
             rows = api_get("/congestion/current", {"window_minutes": 30})
-            if not rows:
-                return None
             import pandas as pd
+            if not rows:
+                return render.DataGrid(pd.DataFrame(columns=["Location", "Level (0-10)", "Status", "Speed (mph)", "Volume", "Timestamp"]))
+
             df = pd.DataFrame([{
                 "Location":    r.get("location_name", r["location_id"]),
                 "Level (0-10)": r["congestion_level"],
