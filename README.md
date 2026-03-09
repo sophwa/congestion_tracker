@@ -225,7 +225,7 @@ Run against the local or deployed API. Start the API first, then:
 
 ```bash
 bash tests/run_all_tests.sh                              # local
-API_BASE=https://your-deployed-api.com bash tests/run_all_tests.sh  # deployed
+API_BASE=https://connect.systems-apps.com/content/0cfe1060-3483-462a-9f2b-478fe980a128 bash tests/run_all_tests.sh  # deployed
 ```
 
 | # | Script | What it checks |
