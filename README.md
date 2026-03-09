@@ -24,19 +24,23 @@ The pipeline:
 ```
 congestion_tracker/
 ├── data/
-│   ├── generate_data.py      # Synthetic data generator (run once)
+│   ├── generate_data.py      # Synthetic data generator (re-run to refresh data to today)
 │   ├── locations.csv         # 20 monitored locations
-│   └── readings.csv          # ~26,880 congestion readings (14 days, 15-min intervals)
+│   └── readings.csv          # ~40,320 congestion readings (21 days, 15-min intervals, rolling window ending today)
 ├── database/
 │   ├── schema.sql            # SQL: create tables + RLS policies (paste into Supabase SQL editor)
 │   └── seed.py               # Seed script: uploads CSVs to Supabase
 ├── api/
 │   ├── app.py                # FastAPI application
 │   ├── requirements.txt      # Python dependencies
+│   ├── .env.example          # Environment variable template
+│   ├── .python-version       # Pin Python 3.12 for Posit Connect
 │   └── manifest.json         # Posit Connect deployment manifest
 ├── dashboard/
 │   ├── app.py                # Shiny (Python) dashboard
 │   ├── requirements.txt      # Python dependencies
+│   ├── .env.example          # Environment variable template
+│   ├── .python-version       # Pin Python 3.12 for Posit Connect
 │   └── manifest.json         # Posit Connect deployment manifest
 ├── tests/
 │   ├── test_01_locations.sh       # Test: list all locations
@@ -55,7 +59,7 @@ congestion_tracker/
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.12+
 - A [Supabase](https://supabase.com) account (free tier is sufficient)
 - An [Ollama Cloud](https://ollama.com) account with an API key and a model deployed (e.g. `gpt-oss:20b-cloud`)
 
@@ -84,7 +88,7 @@ SUPABASE_KEY=your-anon-key
 **`dashboard/.env`** — fill in your API URL and Ollama Cloud credentials:
 ```
 API_BASE_URL=http://localhost:8000
-OLLAMA_BASE_URL=https://your-ollama-cloud-host
+OLLAMA_BASE_URL=https://ollama.com
 OLLAMA_MODEL=gpt-oss:20b-cloud
 OLLAMA_API_KEY=your-ollama-cloud-api-key
 ```
@@ -97,7 +101,14 @@ OLLAMA_API_KEY=your-ollama-cloud-api-key
 
 ### 4. Seed synthetic data
 
-The CSV data files are already included in the repo (`data/locations.csv` and `data/readings.csv`). Just upload them to Supabase:
+The CSV data files are already included in the repo (`data/locations.csv` and `data/readings.csv`), pre-generated with a rolling 21-day window ending today. To refresh the data window before seeding:
+
+```bash
+# Optional: regenerate readings.csv so END = today
+python3 data/generate_data.py
+```
+
+Then upload to Supabase:
 
 ```bash
 pip3 install supabase python-dotenv
@@ -154,20 +165,29 @@ Full interactive docs at `/docs` (Swagger UI) or `/redoc`.
 
 ## Deployment (Posit Connect)
 
-Both components have a `manifest.json` for Posit Connect deployment.
+Both components have a `manifest.json` for Posit Connect deployment. Each directory contains a `.python-version` file pinning Python 3.12 to match the server environment.
 
 ```bash
 # API (FastAPI)
 cd api
 pip3 install rsconnect-python
-rsconnect deploy fastapi --server https://your.posit.server --api-key YOUR_KEY .
+rsconnect deploy fastapi --server https://connect.systems-apps.com --api-key YOUR_KEY .
 
 # Dashboard (Shiny Python)
 cd dashboard
-rsconnect deploy shiny --server https://your.posit.server --api-key YOUR_KEY .
+rsconnect deploy shiny --server https://connect.systems-apps.com --api-key YOUR_KEY .
 ```
 
-Alternatively, deploy each as a DigitalOcean App Platform service (set the run command to `uvicorn app:app --host 0.0.0.0 --port 8080` for the API and `shiny run app.py --host 0.0.0.0 --port 8080` for the dashboard).
+After deploying:
+1. **Set environment variables** in the Connect UI (Content → Settings → Environment Variables) for each app — see `.env.example` in each directory.
+2. **Set access** to "Anyone — no login required" (Content → Settings → Access) so the API can be reached without authentication.
+
+To regenerate the `manifest.json` files locally (e.g. after adding dependencies):
+
+```bash
+bash api/manifestme.sh
+bash dashboard/manifestme.sh
+```
 
 ---
 
@@ -190,5 +210,7 @@ All data is **synthetic**. The `data/generate_data.py` script generates realisti
 - PM peak (4–6 PM): 2.2× normal congestion
 - Weekend reduction: 25–50% lower
 - Gaussian noise for natural variation
+
+Dates are computed **relative to today** each time the script runs, so the 21-day window always ends at the current date. Re-running the script and re-seeding Supabase keeps the "current congestion" endpoint populated with fresh data.
 
 See `codebook.md` for full variable descriptions.
