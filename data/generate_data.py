@@ -1,11 +1,12 @@
 # generate_data.py
 # Synthetic data generator for City Congestion Tracker
-# Generates realistic congestion readings for 20 city locations over 14 days
+# Generates realistic congestion readings for 20 city locations over 21 days
 # Run: python generate_data.py  --> writes locations.csv and readings.csv
+# Dates are computed relative to today so re-running always produces current data.
 
 import csv
 import random
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 random.seed(42)
 
@@ -94,8 +95,10 @@ def volume_from_congestion(congestion: float, loc_type: str) -> int:
 # ---------------------------------------------------------------------------
 # 3. Generate readings
 # ---------------------------------------------------------------------------
-START = datetime(2026, 2, 23, 0, 0, 0)   # 21 days of data (through Mar 15)
-END = datetime(2026, 3, 15, 23, 45, 0)
+# Dates are relative to today so the dataset always ends with current readings.
+_today = datetime.now(timezone.utc).replace(tzinfo=None)
+END   = _today.replace(hour=23, minute=45, second=0, microsecond=0)
+START = END - timedelta(days=20)   # 21 days total
 INTERVAL_MINUTES = 15
 
 
