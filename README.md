@@ -43,12 +43,14 @@ congestion_tracker/
 │   ├── .python-version       # Pin Python 3.12 for Posit Connect
 │   └── manifest.json         # Posit Connect deployment manifest
 ├── tests/
-│   ├── test_01_locations.sh       # Test: list all locations
-│   ├── test_02_current.sh         # Test: current congestion
-│   ├── test_03_history.sh         # Test: 7-day history for one location
-│   ├── test_01_expected.json      # Expected output (locations)
-│   ├── test_02_expected.json      # Expected output (current)
-│   └── test_03_expected.json      # Expected output (history)
+│   ├── run_all_tests.sh           # Convenience wrapper: runs all tests in sequence
+│   ├── test_local.py              # Offline data tests (CSV structure + model behaviour)
+│   ├── test_01_locations.sh       # Live API test: list all locations
+│   ├── test_02_current.sh         # Live API test: current congestion
+│   ├── test_03_history.sh         # Live API test: 7-day history for one location
+│   ├── test_01_expected.json      # Reference dataset: expected /locations response
+│   ├── test_02_expected.json      # Reference dataset: expected /congestion/current response
+│   └── test_03_expected.json      # Reference dataset: expected /congestion/history response
 ├── codebook.md               # Variable descriptions for all data files
 └── README.md                 # This file
 ```
@@ -193,13 +195,46 @@ bash dashboard/manifestme.sh
 
 ## Test Examples
 
-See `tests/` for three curl-based test scripts and their expected outputs. Quick summary:
+The `tests/` directory contains two complementary test suites:
+
+### Offline data tests (no API needed)
+
+Validates the CSV files and congestion model directly:
+
+```bash
+python3 tests/test_local.py
+```
 
 | # | Test | What it checks |
 |---|------|----------------|
-| 1 | `test_01_locations.sh` | Returns 20 locations with correct schema |
-| 2 | `test_02_current.sh` | Returns current readings, all levels 0–10 |
-| 3 | `test_03_history.sh` | Returns ordered time-series for location 1, last 7 days |
+| 1 | Locations: correct count | 20 rows in `locations.csv` |
+| 2 | Locations: schema | All required columns present |
+| 3 | Locations: valid types | Only `intersection`, `segment`, `zone` |
+| 4 | Readings: correct count | ~40,320 rows (21-day rolling window) |
+| 5 | Readings: schema | All 6 required columns present |
+| 6 | Readings: congestion range | All values in [0, 10] |
+| 7 | Readings: speed range | All values in [5, 45] mph |
+| 8 | Readings: location IDs | Only IDs 1–20 present |
+| 9 | Readings: timestamp format | `YYYY-MM-DD HH:MM:SS` throughout |
+| 10 | Model: peak vs night | AM peak avg > overnight avg |
+| 11 | Model: weekday vs weekend | Weekday avg > weekend avg |
+
+### Live API tests
+
+Run against the local or deployed API. Start the API first, then:
+
+```bash
+bash tests/run_all_tests.sh                              # local
+API_BASE=https://your-deployed-api.com bash tests/run_all_tests.sh  # deployed
+```
+
+| # | Script | What it checks |
+|---|--------|----------------|
+| 1 | `test_01_locations.sh` | HTTP 200, 20 locations, correct schema |
+| 2 | `test_02_current.sh` | HTTP 200, all `congestion_level` in [0, 10] |
+| 3 | `test_03_history.sh` | HTTP 200, ascending timestamps, all `location_id == 1` |
+
+Reference datasets for each test are in `test_01_expected.json`, `test_02_expected.json`, and `test_03_expected.json`.
 
 ---
 
