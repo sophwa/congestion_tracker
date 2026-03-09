@@ -16,7 +16,7 @@ echo "Calling: $ENDPOINT"
 echo ""
 
 response=$(curl -s -w "\n%{http_code}" "$ENDPOINT")
-body=$(echo "$response" | head -n -1)
+body=$(echo "$response" | sed '$d')
 code=$(echo "$response" | tail -n 1)
 
 echo "HTTP Status: $code"
