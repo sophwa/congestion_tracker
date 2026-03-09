@@ -94,8 +94,8 @@ def volume_from_congestion(congestion: float, loc_type: str) -> int:
 # ---------------------------------------------------------------------------
 # 3. Generate readings
 # ---------------------------------------------------------------------------
-START = datetime(2026, 2, 23, 0, 0, 0)   # 14 days ago (relative to Mar 8)
-END = datetime(2026, 3,  8, 23, 45, 0)
+START = datetime(2026, 2, 23, 0, 0, 0)   # 21 days of data (through Mar 15)
+END = datetime(2026, 3, 15, 23, 45, 0)
 INTERVAL_MINUTES = 15
 
 
