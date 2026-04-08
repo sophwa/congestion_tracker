@@ -97,8 +97,8 @@ def volume_from_congestion(congestion: float, loc_type: str) -> int:
 # ---------------------------------------------------------------------------
 # Dates are relative to today so the dataset always ends with current readings.
 _today = datetime.now(timezone.utc).replace(tzinfo=None)
-END   = _today.replace(hour=23, minute=45, second=0, microsecond=0)
-START = END - timedelta(days=20)   # 21 days total
+END   = (_today + timedelta(days=7)).replace(hour=23, minute=45, second=0, microsecond=0)
+START = END - timedelta(days=27)   # 28 days total (21 past + 7 future)
 INTERVAL_MINUTES = 15
 
 
